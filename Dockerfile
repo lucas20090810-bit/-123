@@ -6,8 +6,8 @@ WORKDIR /app
 COPY package*.json ./
 COPY pnpm-lock.yaml* ./
 
-# Install dependencies checking for lockfile
-RUN if [ -f pnpm-lock.yaml ]; then npm install -g pnpm && pnpm install; else npm install; fi
+# Install dependencies (forcing npm and legacy-peer-deps to avoid conflicts)
+RUN npm install --legacy-peer-deps
 
 # Copy source code
 COPY . .
